@@ -1,0 +1,40 @@
+<%- include('layouts/header.ejs') -%>
+
+<div class="container">
+    <h1><%= title %></h1>
+    <!-- Leer la información de la Base de datos -->
+    <div class="row">
+        <% for(var i = 0; i < Libros.length; i++) { %>
+
+        <div class="col-sm-3">
+            <div class="card">
+                <img height="400" src="<%= Libros[i].imagen %>" class="card-imagen">
+                <div class="card-body">
+                    <h5 class="card-title"><%= Libros[i].titulo %></h5>
+                    <p class="card-text"><%= Libros[i].descripcion %></p>
+                    <p class="card-text">Precio: $<%= Libros[i].precio %></p>
+                    <p class="card-text">ID: <%= Libros[i].ID %></p>
+                    <a href="/productos/" class="btn btn-primary">Ver Detalles</a>
+                    <!-- Botón de Edición -->
+                    <a href="/editar/<%= Libros[i].ID %>/editar" class="btn btn-primary">Editar</a>
+
+
+                    <!-- Botón de Eliminación -->
+                    <form action="/eliminar/<%= Libros[i].ID %>" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+<!-- Botón para crear un nuevo producto -->
+<div class="mt-4">
+    <a href="/agregar" class="btn btn-success">Crear Producto</a>
+</div>
+</div>
+
+<%- include('layouts/footer.ejs') -%>
